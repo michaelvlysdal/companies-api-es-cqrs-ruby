@@ -3,3 +3,7 @@ development:
   host: localhost
   database: companies_db
   schema_search_path: "event_store, <%= CompaniesApp::VIEW_PROJECTION.schema_name %>"
+
+production:
+  adapter: postgresql
+  url: <%= ENV['DATABASE_URL'] %>
