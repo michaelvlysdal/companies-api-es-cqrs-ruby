@@ -1,0 +1,22 @@
+database: &database
+  adapter: postgresql
+  timeout: 5000
+  schema_search_path: "event_store, <%= CompaniesApp::VIEW_PROJECTION.schema_name %>"
+
+development:
+  <<: *database
+  host: localhost
+  port: 5432
+  database: companies_db  
+  pool: 5
+
+test:
+  <<: *database
+  host: localhost
+  port: 5432
+  pool: 5
+  database: companies_test_db
+
+production:
+  <<: *database
+  url: <%= ENV['DATABASE_URL'] %>
