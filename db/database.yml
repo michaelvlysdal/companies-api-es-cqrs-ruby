@@ -1,9 +1,10 @@
 development:
   adapter: postgresql
-  host: localhost
+  url: <%= ENV['DATABASE_URL'] %>
   database: companies_db
   schema_search_path: "event_store, <%= CompaniesApp::VIEW_PROJECTION.schema_name %>"
 
 production:
   adapter: postgresql
+  database: <%= ENV['DATABASE_NAME'] %>
   url: <%= ENV['DATABASE_URL'] %>
