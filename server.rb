@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/namespace'
 require 'sequent'
 require 'pg'
+require 'uri'
 require_relative 'companies_app'
 require_relative 'dtos/companyListResponse'
 require_relative 'dtos/companyResponse'
@@ -42,7 +43,8 @@ namespace '/api/v1' do
 
   get '/companies' do
     companies = Array.new
-    conn = PG.connect(dbname: 'companies_db')
+    uri = URI.parse(ENV['DATABASE_URL'])
+    conn = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
     res = conn.exec('select * from view_1.company_list_records;')
     res.each do |row|
       companies.push CompanyListResponse.new(row['aggregate_id'], row['name'])
@@ -52,7 +54,9 @@ namespace '/api/v1' do
 
   get '/companies/:id' do |id|
     companies = Array.new
-    conn = PG.connect(dbname: 'companies_db')
+    uri = URI.parse(ENV['DATABASE_URL'])
+    conn = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
+
     res = conn.exec('select * from view_1.company_records where aggregate_id=$1;', [id])
     firstRow = res.values[0]
     halt 404, { message: 'Company not found' }.to_json unless firstRow

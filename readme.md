@@ -9,6 +9,7 @@ Loads of things that can be improved, probably adding tests and validations is m
 Requires PostgreSQL locally installed
 
 ```sh
+export DATABASE_URL=postgres://:@localhost/companies_db
 bundle install
 bundle exec rake db:create
 bundle exec rake db:migrate
