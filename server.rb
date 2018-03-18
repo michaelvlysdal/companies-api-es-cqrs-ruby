@@ -3,12 +3,18 @@ require 'sinatra/namespace'
 require 'sequent'
 require 'pg'
 require 'uri'
+require "sinatra/cors"
 require_relative 'companies_app'
 require_relative 'dtos/companyListResponse'
 require_relative 'dtos/companyResponse'
 require_relative 'companies/commands'
 require_relative 'companies/event_handlers'
 require_relative 'companies/command_handlers'
+
+set :allow_origin, "*"
+set :allow_methods, "GET,HEAD,POST"
+set :allow_headers, "content-type"
+set :expose_headers, "location"
 
 after do
   ActiveRecord::Base.clear_active_connections!

@@ -1,9 +1,20 @@
 development:
   adapter: postgresql
-  url: <%= ENV['DATABASE_URL'] %>
+  host: localhost
+  port: 5432
+  timeout: 5000
+  database: companies_db
   schema_search_path: "event_store, <%= CompaniesApp::VIEW_PROJECTION.schema_name %>"
 
 production:
   adapter: postgresql
   url: <%= ENV['DATABASE_URL'] %>
+  schema_search_path: "event_store, <%= CompaniesApp::VIEW_PROJECTION.schema_name %>"
+
+test:
+  adapter: postgresql
+  host: localhost
+  port: 5432
+  timeout: 5000
+  database: companies_test_db
   schema_search_path: "event_store, <%= CompaniesApp::VIEW_PROJECTION.schema_name %>"

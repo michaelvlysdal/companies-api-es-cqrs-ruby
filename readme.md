@@ -26,4 +26,4 @@ Get companies:
 curl -H "Content-Type: application/json" http://localhost:4567/api/v1/companies
 
 Pick an id and get more details for a specific company:
-curl -H "Content-Type: application/json" http://localhost:4567/api/v1/companies/{ID}121b3609-9d75-4b04-bcd2-837fd4f50c30
+curl -H "Content-Type: application/json" http://localhost:4567/api/v1/companies/{ID}
