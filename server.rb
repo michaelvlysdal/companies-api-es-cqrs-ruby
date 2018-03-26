@@ -55,6 +55,7 @@ namespace '/api/v1' do
     res.each do |row|
       companies.push CompanyListResponse.new(row['aggregate_id'], row['name'])
     end
+    conn.close
     companies.to_json
   end
 
@@ -65,6 +66,7 @@ namespace '/api/v1' do
 
     res = conn.exec('select * from view_1.company_records where aggregate_id=$1;', [id])
     firstRow = res.values[0]
+    conn.close
     halt 404, { message: 'Company not found' }.to_json unless firstRow
     # There must be a better way :/
     CompanyResponse.new(firstRow[1], firstRow[2], firstRow[3], firstRow[4], firstRow[5], firstRow[6], firstRow[7]).to_json
